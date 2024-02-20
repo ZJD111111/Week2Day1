@@ -1,34 +1,29 @@
-namespace app1;
-
-class LongestSequences
+namespace app;
+class ReverseSentense
 {
-    public void LongestSequence(int[] array)
+    public void ReverseSentenseMethod(string sentense)
     {
-        int longestLeft = 0;
-        int longestRight = 0;
-        int left = 0;
-        int longest = 0;
-        for (int right = 1; right < array.Length; right++)
+        char[] separators = { '.', ',', ':', ';', '=', '(', ')', '&', '[', ']', '"', '\'', '\\', '/', '!', '?', ' ' };
+        string[] words = sentense.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+        List<String> separatorsBetweenWords = new List<string>();
+        for (int i = 0; i < sentense.Length; i++)
         {
-            if (array[right] == array[left])
+            if (separators.Contains(sentense[i]))
             {
-                continue;
-            }
-            else
-            {
-                int len = right - left;
-                if (len > longest)
-                {
-                    longest = len;
-                    longestLeft = left;
-                    longestRight = right;
-                }
-                left = right;
+                separatorsBetweenWords.Add(sentense[i].ToString());
             }
         }
-        for (int i = longestLeft; i < longestRight; i++)
+        Array.Reverse(words);
+        string reversedSentense = "";
+        for (int i = 0; i < words.Length; i++)
         {
-            Console.Write(array[i] + " ");
+            reversedSentense += words[i];
+            if (i < separatorsBetweenWords.Count)
+            {
+                reversedSentense += separatorsBetweenWords[i];
+            }
         }
+
+        Console.WriteLine(reversedSentense);
     }
 }
